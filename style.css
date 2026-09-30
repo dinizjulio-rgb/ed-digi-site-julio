@@ -1,6 +1,355 @@
- /*resetar as configuração do CSS*/
- *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
- }       
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS & VARIÁVEIS DE CORES (WCAG CONTRAST)
+   ========================================================================== */
+
+/* 
+   Uso de variáveis CSS para manter consistência e garantir contraste mínimo de 4.5:1
+   para texto normal e 3:1 para componentes visuais/botões (WCAG 1.4.3).
+*/
+:root {
+  --color-primary: #004d80;         /* Azul escuro (contraste alto sobre fundo branco) */
+  --color-primary-hover: #003355;   /* Estado de hover */
+  --color-text: #1d2125;            /* Quase preto para excelente legibilidade */
+  --color-text-light: #5e6c84;      /* Cinza escuro para apoio */
+  --color-bg: #ffffff;              /* Fundo claro principal */
+  --color-bg-alt: #f4f5f7;          /* Fundo alternativo */
+  --color-focus: #005fcc;           /* Cor de destaque para o foco de navegação por teclado */
+  --color-border: #dcdfe4;          /* Bordas de campos */
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Reset básico universal e box-sizing para cálculos de layout precisos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Suporte à rolagem suave quando o usuário ativa os links do menu */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* ==========================================================================
+   2. ACESSIBILIDADE ESSENCIAL (WCAG)
+   ========================================================================== */
+
+/* 
+   Classe para ocultar texto visualmente, mas mantê-lo visível para leitores de tela.
+   Muito utilizado em botões, ícones ou instruções adicionais de contexto.
+*/
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 
+   Link de Atalho (Skip Link): Escondido fora da tela por padrão.
+   Fica visível quando recebe foco via tecla TAB, permitindo pular o menu principal.
+*/
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  z-index: 1000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 0 0 4px 4px;
+}
+
+.skip-link:focus {
+  top: 0; /* Aparece no topo quando focado */
+  outline: 3px solid var(--color-focus);
+}
+
+/* 
+   INDICADOR VISUAL DE FOCO (:focus-visible) - WCAG 2.4.7
+   Aplica um anel visível e chamativo APENAS durante a navegação por TECLADO.
+*/
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   3. LAYOUT CONTAINER & ESTRUTURA GERAL (FLEXBOX)
+   ========================================================================== */
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.bg-alt {
+  background-color: var(--color-bg-alt);
+}
+
+/* ==========================================================================
+   4. CABEÇALHO & NAVEGAÇÃO (FLEXBOX)
+   ========================================================================== */
+
+.header {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* 
+   Flexbox no Header: Alinha a marca à esquerda e o menu à direita.
+   align-items: center alinha verticalmente os itens ao centro.
+   justify-content: space-between afasta os elementos nas extremidades.
+*/
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.logo a {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* 
+   Flexbox na Lista de Navegação:
+   Remove estilos padrão de lista e exibe os itens lado a lado (row) com espaçamento regular.
+*/
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem; /* Espaçamento uniforme entre os links de navegação */
+}
+
+.nav-link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   5. SEÇÃO HERO & BOTÕES INTERATIVOS
+   ========================================================================== */
+
+/* 
+   Flexbox no Hero: Centraliza o conteúdo textual e botão tanto na vertical quanto na horizontal.
+*/
+.hero {
+  background-color: var(--color-bg-alt);
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column; /* Organiza título, parágrafo e botão em coluna */
+  align-items: center;    /* Centraliza os itens no eixo transversal */
+  gap: 1.5rem;
+}
+
+.hero h1 {
+  font-size: 2.25rem;
+  color: var(--color-primary);
+}
+
+.hero p {
+  font-size: 1.125rem;
+  max-width: 600px;
+  color: var(--color-text-light);
+}
+
+/* Estilo padronizado para Botões e Simulação de Links Interativos */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   6. SEÇÃO DE SERVIÇOS (CARDS COM FLEXBOX)
+   ========================================================================== */
+
+/* 
+   Flexbox no Grid de Cards:
+   flex-wrap: wrap permite que os cards dobrem de linha em telas menores.
+*/
+.cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  /* flex: flex-grow | flex-shrink | flex-basis */
+  /* Faz com que cada card cresça e ocupe espaço igual, mantendo no mínimo 280px */
+  flex: 1 1 280px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Mantém o botão alinhado na parte inferior */
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+/* ==========================================================================
+   7. FORMULÁRIO DE CONTATO ACESSÍVEL
+   ========================================================================== */
+
+.form-contato {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 600px;
+  margin-top: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Inputs, Select e Textarea com área de toque mínima confortável */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: #ffffff;
+}
+
+/* ==========================================================================
+   8. RODAPÉ (FOOTER)
+   ========================================================================== */
+
+.footer {
+  background-color: var(--color-text);
+  color: #ffffff;
+  padding: 2rem 0;
+  margin-top: 2rem;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-links a:hover {
+  color: var(--color-border);
+}
+
+/* ==========================================================================
+   9. RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+
+/* Ajustes para telas menores (smartphones) */
+@media (max-width: 600px) {
+  .header-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-list {
+    gap: 1rem;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}

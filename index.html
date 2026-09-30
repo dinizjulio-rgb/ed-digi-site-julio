@@ -1,14 +1,147 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<!-- O atributo lang="pt-BR" é fundamental para que leitores de tela pronunciem o texto na língua correta -->
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>julio</title>
+  <meta charset="UTF-8">
+  <!-- Garantia de responsividade para dispositivos móveis -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Título descritivo e claro para navegação e SEO -->
+  <title>TechNova | Soluções Tecnológicas Sustentáveis</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>julio cesar alves diniz</h1>
-    <p>futebol</p>
-    <img src="https://i.pinimg.com/736x/9c/21/af/9c21af7f014e72dbbaf98da469703941.jpg" alt="palmeiras">
+
+  <!-- Link de atalho direto para o conteúdo principal, essencial para usuários que navegam via teclado (WCAG 2.4.1) -->
+  <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- <header>: Cabeçalho principal da página -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="#inicio" aria-label="TechNova - Ir para a página inicial">
+          <strong>TechNova</strong>
+        </a>
+      </div>
+
+      <!-- <nav>: Região semântica destinada aos links de navegação principal -->
+      <!-- aria-label identifica o propósito do menu para leitores de tela -->
+      <nav class="nav" aria-label="Navegação principal">
+        <ul class="nav-list">
+          <li><a href="#inicio" class="nav-link">Início</a></li>
+          <li><a href="#sobre" class="nav-link">Sobre Nós</a></li>
+          <li><a href="#servicos" class="nav-link">Serviços</a></li>
+          <li><a href="#contato" class="nav-link">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- <main>: Indica a área de conteúdo principal e exclusivo da página (somente 1 por documento) -->
+  <!-- tabIndex="-1" permite que o link de salto "skip-link" mova o foco do teclado para cá sem tornar o elemento focável na ordem normal de TAB -->
+  <main id="conteudo-principal" tabindex="-1">
+
+    <!-- <section>: Agrupa conteúdos relacionados sob um mesmo tema -->
+    <!-- aria-labelledby associa o título <h1 id="hero-title"> à seção para contexto em leitores de tela -->
+    <section id="inicio" class="hero" aria-labelledby="hero-title">
+      <div class="container hero-container">
+        <h1 id="hero-title">Inovação e Tecnologia para o Seu Negócio</h1>
+        <p>Desenvolvemos software sob medida com foco em acessibilidade, alto desempenho e inteligência de mercado.</p>
+        <!-- Elemento de link estilizado como botão interativo de ação -->
+        <a href="#contato" class="btn btn-primary">Fale com um Especialista</a>
+      </div>
+    </section>
+
+    <!-- Seção Institucional / Sobre -->
+    <section id="sobre" class="section" aria-labelledby="sobre-title">
+      <div class="container">
+        <h2 id="sobre-title">Sobre a TechNova</h2>
+        <p>A TechNova é especialista em transformação digital sustentável. Nossa missão é criar ecossistemas digitais inclusivos, onde a tecnologia seja acessível para todas as pessoas, independentemente de suas capacidades visuais, motoras ou cognitivas.</p>
+      </div>
+    </section>
+
+    <!-- Seção de Serviços -->
+    <section id="servicos" class="section bg-alt" aria-labelledby="servicos-title">
+      <div class="container">
+        <h2 id="servicos-title">Nossos Serviços</h2>
+        <div class="cards-grid">
+          <!-- <article>: Conteúdo independente e autossuficiente -->
+          <article class="card">
+            <h3>Desenvolvimento Web</h3>
+            <p>Sistemas e plataformas web modernas, responsivas e integradas aos seus processos.</p>
+            <a href="#contato" class="btn btn-secondary">Saber Mais <span class="visually-hidden">sobre Desenvolvimento Web</span></a>
+          </article>
+
+          <article class="card">
+            <h3>Auditoria de Acessibilidade</h3>
+            <p>Análise e reestruturação do seu produto digital para conformidade total com as diretrizes WCAG.</p>
+            <a href="#contato" class="btn btn-secondary">Saber Mais <span class="visually-hidden">sobre Auditoria de Acessibilidade</span></a>
+          </article>
+
+          <article class="card">
+            <h3>Consultoria em Nuvem</h3>
+            <p>Otimização de infraestrutura com foco em segurança, escalabilidade e redução de custos.</p>
+            <a href="#contato" class="btn btn-secondary">Saber Mais <span class="visually-hidden">sobre Consultoria em Nuvem</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Contato com Formulário Acessível -->
+    <section id="contato" class="section" aria-labelledby="contato-title">
+      <div class="container">
+        <h2 id="contato-title">Entre em Contato</h2>
+        <p>Preencha o formulário abaixo e nossa equipe retornará em até 24 horas úteis.</p>
+
+        <!-- novalidate permite validação personalizada; ative a validação nativa removendo-o se preferir -->
+        <form action="#" method="POST" class="form-contato" aria-describedby="instrucoes-form">
+          <p id="instrucoes-form" class="visually-hidden">Todos os campos com asterisco são de preenchimento obrigatório.</p>
+
+          <div class="form-group">
+            <!-- O atributo 'for' do <label> DEVE corresponder exatamente ao 'id' do <input> para associação acessível -->
+            <label for="nome">Nome Completo <span aria-hidden="true">*</span></label>
+            <input type="text" id="nome" name="nome" required aria-required="true" autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mail Corporativo <span aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" required aria-required="true" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="assunto">Assunto <span aria-hidden="true">*</span></label>
+            <select id="assunto" name="assunto" required aria-required="true">
+              <option value="">Selecione uma opção</option>
+              <option value="orcamento">Solicitar Orçamento</option>
+              <option value="auditoria">Consultoria/Acessibilidade</option>
+              <option value="outros">Outros Assuntos</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mensagem">Mensagem <span aria-hidden="true">*</span></label>
+            <textarea id="mensagem" name="mensagem" rows="5" required aria-required="true"></textarea>
+          </div>
+
+          <!-- Botão nativo <button type="submit"> para correto comportamento em leitores de tela e formulários -->
+          <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- <footer>: Rodapé institucional com informações de direitos e contatos secundários -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <p>&copy; 2026 TechNova Soluções Tecnológicas. Todos os direitos reservados.</p>
+      <nav aria-label="Navegação do rodapé">
+        <ul class="footer-links">
+          <li><a href="#inicio">Termos de Uso</a></li>
+          <li><a href="#inicio">Política de Privacidade</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
 </body>
 </html>
